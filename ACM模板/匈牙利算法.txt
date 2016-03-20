@@ -1,0 +1,104 @@
+﻿
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+
+
+const int maxn = 301*101;
+int first[maxn],next[maxn],v[maxn];//头结点，下一点，和边的终点
+int  vis[maxn];    //记录是否访问过
+int link [maxn];//记录与之匹配的点
+int p ,n ;
+
+void innt()
+{
+   memset(first,-1,sizeof(first));
+   memset(link,0,sizeof(link));
+   return ;
+}
+
+int find ( int k)
+{
+   int i;
+   for(i=first[k];i!=-1;i=next[i])
+   {//寻找与k连接的点
+
+     if(!vis[v[i]])
+     {//如果没访问过，则访问并标记00
+
+       vis[v[i]]=1;
+       if(link[v[i]]==0||find(link[v[i]]))
+       {
+         link[v[i]]=k;
+         return 1;//与之匹配
+
+       }
+     }
+
+   }
+   return 0;
+
+}
+
+
+
+int main ()
+{
+
+int  t;
+
+scanf("%d",&t);
+while(t--)
+{
+      int i,j;
+      int e=0;
+      innt();
+
+      scanf("%d%d",&p,&n);//p为边的量  n为点的量
+
+
+      for(i=0;i<p;i++)  //建立类邻接表的数组
+      {
+        int a;
+        scanf("%d",&a);//a点和之后的都有边的关系
+        for(j=0;j<a;j++,e++)
+        {
+        scanf("%d",&v[e]);
+        next[e]=first[i+1];
+        first[i+1]=e;
+
+        }
+      }
+
+
+      int ans=0;
+      for(i=0;i<p;i++)
+      {
+       memset(vis,0,sizeof(vis));
+       if(!find(i+1))
+       {
+       ans=1;
+       break;
+
+       }
+      }
+
+
+
+
+      //判断能否找出二分图的最大匹配
+
+
+      if(ans)
+      printf("NO\n");
+      else
+      printf("YES\n");
+
+
+
+
+}
+    return 0;
+
+}
+

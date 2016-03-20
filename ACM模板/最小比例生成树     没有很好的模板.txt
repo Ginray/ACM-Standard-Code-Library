@@ -1,0 +1,81 @@
+﻿//求最优比例生成树
+
+#include<stdlib.h>
+#include<stdio.h>
+#include<math.h>
+#include<string.h>
+#define   Maxvalue 99999999
+int n,x[1000],y[1000],h[1000];
+double cost[1000][1000],dist[1000][1000],dis[1000];
+double prim(double p);
+bool flag[1000];
+int main()
+{
+    int i,j;
+    double a,b;
+    while(scanf("%d",&n)==1&&n)
+    {
+          for (i=0;i<n;i++)
+                scanf("%d%d%d",&x[i],&y[i],&h[i]);    //俩点间的路径是坐标间的距离 x,y      两点间的权值是h相减
+          for (i=0;i<n;i++)
+          {
+                for (j=i+1;j<n;j++)
+                {
+                      b=(x[i]-x[j])*(x[i]-x[j])+(y[i]-y[j])*(y[i]-y[j]);
+                      dist[i][j]=sqrt(b);
+                      dist[j][i]=dist[i][j];
+                      cost[i][j]=h[i]-h[j];
+                      if (cost[i][j]<0)
+                            cost[i][j]=-cost[i][j];
+                      cost[j][i]=cost[i][j];
+                }
+          }
+          a=0;
+          while (1)
+          {
+                b=prim(a);
+                if (fabs(b-a)<0.0001)
+                      break;
+                a=b;
+          }
+          printf("%.3lf\n",b);
+    }
+    return 0;
+}
+double prim(double p)
+{
+    int i,j,k,pre[1000]={0};
+    double mincost,v,totcost=0,totdist=0;
+    dis[0]=0;
+    memset(flag,false,sizeof(flag));
+    for (j=1;j<n;j++)
+          dis[j]=cost[j][0]-p*dist[j][0];
+    for (i=1;i<n;i++)
+    {
+          mincost=Maxvalue;
+          for (j=1;j<n;j++)
+          {
+                if (flag[j]==false && mincost>dis[j])
+                {
+                      mincost=dis[j];
+                      k=j;
+                }
+          }
+          flag[k]=true;
+          totcost+=cost[pre[k]][k];
+          totdist+=dist[pre[k]][k];
+          for (j=0;j<n;j++)
+          {
+                if (flag[j]==false)
+                {
+                      if ((v=cost[k][j]-p*dist[k][j])<dis[j])
+                      {
+                            dis[j]=v;
+                            pre[j]=k;
+                      }
+                }
+          }
+    }
+    return totcost/totdist;
+}
+

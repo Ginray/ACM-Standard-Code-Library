@@ -1,0 +1,126 @@
+﻿#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+
+int rode[1002][1002];
+
+int flag[1002];//是否被访问过
+int temp[1002];//到这个点的距离 
+
+void djs(int x,int y,int z) //要到y点 ，有x个数,有z条边
+{
+	int i,j,now;
+	int min;
+	
+	for(i=0;i<1002;i++)
+	
+	{
+		flag[i]=0;
+		temp[i]=99999999;
+
+	}
+	for (i=1;i<=x;i++)
+		temp[i]=rode[y][i];
+
+	temp[y]=0;
+
+
+	for(i=1;i<=x;i++)
+	{
+
+		min =99999999;
+
+		for(j=1;j<=x;j++)
+		{
+		  if(!flag[j]&&temp[j]<min)
+		{	
+			min=temp[j];
+			now=j;
+		  }
+		}
+		
+		flag[now]=1;
+		
+		for(j=1;j<=x;j++)
+			if(temp[j]>temp[now]+rode[now][j])
+                temp[j]=temp[now]+rode[now][j];
+
+	
+	}
+
+
+
+
+
+}
+
+
+int  main ()
+{
+	int n,m,x;
+	 while(~scanf("%d%d%d",&n,&m,&x))
+
+	 {
+		
+		
+		 
+		 int a,b,t;
+		 int i,j,wtf;
+		 int ans1[1002],ans2[1002];
+		 int ans=-9999;
+		 for(i=00;i<1002;i++)
+		 {
+		 for(j=0;j<1002;j++)
+			 rode[i][j]=99999999;
+		 
+		 }
+
+
+		 for(i=1;i<=m;i++)
+		 {
+		 scanf("%d%d%d",&a,&b,&t);
+		 rode[a][b]=t;
+		 }
+		 
+
+		 djs(n,x,m);
+
+		 for(i=1;i<=n;i++)
+		 {
+					ans1[i]=temp[i];
+			 
+		 }
+
+		 for(i=0;i<1002;i++)
+		 {
+			 for(j=i+1;j<1002;j++)
+			 {
+				 wtf=rode[i][j];
+				rode[i][j]=rode[j][i];
+				rode[j][i]=wtf;
+			 }
+		 }
+		  djs(n,x,m);
+
+		 for(i=1;i<=n;i++)
+		 {
+			if(ans1[i]+temp[i]>ans)
+				ans=ans1[i]+temp[i];
+				
+		 }
+		
+		
+		 printf("%d\n",ans);
+
+
+		
+
+
+
+	 
+	 
+	 }
+	 return 0;
+
+}
