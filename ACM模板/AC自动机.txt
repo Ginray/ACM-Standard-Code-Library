@@ -100,9 +100,9 @@
                 {
                     cnt+=temp->count;
                     temp->count=-1;      // 这里把原来的值清空了  假如一个AC自动机要多次被访问，可以用一个flag数组来保存是否被访问过
-
+                    					 //假如可以计算重复的子串 就删除 temp->count=-1;这句。 
                 }
-                else break;
+              
                 temp=temp->fail;
             }
         }
