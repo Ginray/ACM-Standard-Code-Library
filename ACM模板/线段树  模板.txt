@@ -1,4 +1,5 @@
-﻿//单点替换、单点增减、区间求和、区间最值
+﻿
+//单点替换、单点增减、区间求和、区间最值
 
 
 #include <cstdio>
@@ -49,6 +50,8 @@ void update(int p,int tihuan,int l,int r,int rt)
 void update1(int p,int add,int l,int r,int rt)
 {
   if (l == r) {
+    MAX[rt] = SUM[rt]+add;
+    MIN[rt] = SUM[rt]+add;
     SUM[rt] = SUM[rt] + add;
     return ;
   }
@@ -157,7 +160,7 @@ int main()
 
 
 
-//区间替换 
+//区间替换
 #include <iostream>
 #include <cstdio>
 #include <cstdlib>
@@ -219,7 +222,7 @@ void update(int L,int R,int c,int l,int r,int rt)//更新
   PushUp(rt);
 }
 
-LL query(int L,int R,int l,int r,int rt) 
+LL query(int L,int R,int l,int r,int rt)
 {
   if (L <= l && r <= R)
   {
@@ -233,7 +236,7 @@ LL query(int L,int R,int l,int r,int rt)
   if (m < R) ret += query(L , R , rson);
   return ret;
 }
-int main() 
+int main()
 {
   int  n , m;
   char str[5];
@@ -263,7 +266,7 @@ int main()
 
 
 
-//区间增减 
+//区间增减
 
 #include <iostream>
 #include <cstdio>
