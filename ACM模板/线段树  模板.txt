@@ -7,7 +7,9 @@
 using namespace std;
 #define lson l , m , rt << 1
 #define rson m + 1 , r , rt << 1 | 1
-const int maxn = 222222;
+
+const int maxn = 10000005;               //!!!!!!!!!!!注意最大值
+
 int MAX[maxn<<2];
 int MIN[maxn<<2];
 int SUM[maxn<<2];
@@ -172,8 +174,11 @@ int main()
 #define lson l , m , rt << 1
 #define rson m + 1 , r , rt << 1 | 1
 #define LL long long
-const int maxn = 100100;
+
+const int maxn =  10000005;   //注意最大值
+
 using namespace std;
+
 
 int lazy[maxn<<2];
 int sum[maxn<<2];
@@ -279,7 +284,10 @@ int main()
 #define lson l , m , rt << 1
 #define rson m + 1 , r , rt << 1 | 1
 #define LL __int64
-const int maxn = 100100;
+
+
+const int maxn =  10000005;          //注意最大值!!!!!!!
+
 using namespace std;
 LL lazy[maxn<<2];
 LL sum[maxn<<2];
