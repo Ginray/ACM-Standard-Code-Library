@@ -1,51 +1,62 @@
-﻿#include<stdio.h>
+﻿#include<iostream>
+#include<cstdio>
+#include<time.h>
 #include<stdlib.h>
-#include<math.h>
-int  witness(__int64 a,__int64 n)
+using namespace std;
+typedef long long ll;
+int T,kase = 1,i,j,k,n,m;
+ll mult(ll x,ll y,ll mod) // 防止x*y爆long long;
 {
-    __int64 t,d,x;
-    d=1;
-    int i=ceil(log(n-1.0)/log(2.0)) - 1;
-    for(;i>=0;i--)
-    {
-        x=d;  d=(d*d)%n;
-        if(d==1 && x!=1 && x!=n-1) return 1;
-        if( ((n-1) & (1<<i)) > 0)
-            d=(d*a)%n;
+    ll ans = 0;x %= mod;
+    while(y){
+        if(y&1) ans += x, y--;
+        if(ans >= mod) ans -= mod;
+        y >>= 1;
+        x <<= 1;
+        if(x >= mod) x -= mod;
     }
-    return d==1? 0 : 1;
+    return ans;
 }
-int miller_rabin(__int64 n)
+ll pow(ll a,ll n,ll mod)
 {
-    if(n==2)    return 1;
-    if(n==1 || ((n&1)==0))    return 0;
-    for(int i=0;i<50;i++){
-        __int64 a=rand()*(n-2)/RAND_MAX +1;
-        if(witness(a, n))    return 0;
+    a %= mod;
+    ll ans = 1;
+    while(n){
+        if(n&1) ans = mult(ans,a,mod);
+        a = mult(a,a,mod);
+        n >>= 1;
     }
-    return 1;
-
-
+    return ans;
 }
-
+bool Miller_Rabin(ll n)
+{
+    if(n <= 2) return n == 2;
+    if(n%2 == 0) return false;
+    ll t = n - 1;
+    while(t%2 == 0) t >>= 1;
+    srand(time(NULL));
+    for(int i = 0;i < 15;i++){
+        ll p = rand()%(n-2)+2;
+        if(n%p == 0) return false;
+        ll tmp = t;
+        ll x = pow(p,t,n); // p[i]^t % n;
+        while(tmp < n){
+            ll y = mult(x,x,n);
+            if(y == 1 && x != 1 && x != n-1) return false;
+            x = y;
+            tmp <<= 1;
+        }
+        if(x != 1) return false; // Fermat检测
+    }
+    return true;
+}
 int main()
 {
- int n;
- while(scanf("%d",&n)!=EOF)
- {
-     int ans=0;
-     __int64 x;
-    while(n--)
-    {
-    scanf("%I64d",&x);
-    if(miller_rabin(x))
-       ans++;
-
+    ll x;
+    scanf("%d",&T);
+    while(T--){
+        scanf("%lld",&x);
+        puts(Miller_Rabin(x)?"Yes":"No");
     }
-    printf("%d\n",ans);
-
- }
-return 0;
-
-
+    return 0;
 }
