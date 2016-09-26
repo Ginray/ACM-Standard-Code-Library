@@ -13,7 +13,7 @@ int Lowbit(int k)
 {
     return (k&-k);
 }
-void update(int pos,int num)
+void update(int pos,int num)     //pos   &&  data
 {
     while(pos<=size)//注意这里
     {

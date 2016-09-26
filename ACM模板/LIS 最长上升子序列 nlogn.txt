@@ -1,4 +1,12 @@
-﻿#define MAXN 100005
+﻿/*
+iterator lower_bound( const key_type &key ): 返回一个迭代器，指向键值>= key的第一个元素。
+iterator upper_bound( const key_type &key ): 返回一个迭代器，指向键值 第一个>key的元素。
+*/
+
+
+//这个算法也是nlongn的，只是用了upper_bound  效率可能会低一点
+
+#define MAXN 100005
 #include <iostream>
 #include<stdio.h>
 #include<algorithm>
@@ -34,9 +42,7 @@ int main()
         int n;
         scanf("%d",&n);
         for(int i = 0; i < n;i++)
-                       scanf("%d",&a[i]);
-       
-
+               scanf("%d",&a[i]);
 
         printf("Case #%d:\n%d\n",++l,n-(solve(a,n)));
     }
@@ -55,7 +61,7 @@ int main()
 
 
 
-
+/*
 
 
 //
@@ -71,7 +77,7 @@ int main()
     1. 设当前最长递增子序列为len,考虑元素a[i]; 
     2. 若d[len]<a[i],则len++，并将d[len]=a[i]; 
        否则,在d[0-len]中二分查找,找到第一个比它小的元素d[k],并d[k+1]=a[i].() 
-    */  
+    
     #include <iostream>  
     #include <cstdio>  
     #include <cstring>  
@@ -125,3 +131,4 @@ int main()
         }  
         return 0;  
     }  
+*/

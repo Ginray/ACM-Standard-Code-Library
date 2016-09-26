@@ -30,8 +30,8 @@ void join (int x,int y)
 		flag=1;
 		return;
 	}
-	fy = find(y);
-	if(fx!=fy)
+//	fy = find(y);
+//	if(fx!=fy)
 		pre[fx]=pre[fy];
 	return ;
 
@@ -65,7 +65,7 @@ int main ()
 
 
 	scanf("%d%d",&m,&n);
-init(m);
+	init(m);
 
 	for(i=0;i<n;i++)
 	{
