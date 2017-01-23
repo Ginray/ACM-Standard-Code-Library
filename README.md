@@ -1,1 +1,10 @@
-# Personal Standard Code Library
+#### ACM模板
+
+~~~
+2017.1.23：
+
+更改为markdown文件，以解决在Linux下会乱码的问题。
+因为docx有目录等结构，因此保持不变。
+~~~
+
+已经退役了，这应该是最后一次update了，​:sad:​。
